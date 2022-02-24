@@ -1,2 +1,51 @@
    
+    {{ form_start(form) }}
+    <center>
+        <h1>Création d'un compte </h1>
+    </center>
+
     
+    {{ form_row(form.username, {'label' : 'Nom d\'utilisateur','attr':
+    {'placeholder' : 'Entrer le nom d\'utilisateur'}}) }}
+    {{ form_row(form.name, {'label' : 'Nom','attr':
+    {'placeholder' : 'Entrer votre nom'}}) }}
+    {{ form_row(form.familyName, {'label' : 'Prénom','attr':
+    {'placeholder' : 'Entrer votre prénom'}}) }}
+    {{ form_row(form.email, {'label' : 'Adresse e-mail','attr':
+    {'placeholder' : 'Entrer votre adresse e-mail'}}) }}
+    {{ form_row(form.password, {'label' : 'Mot de passe','attr':
+    {'placeholder' : 'Entrer le mot de passe'}}) }}
+    {{ form_row(form.confirm_password, {'label' : 'Confirmez mot de passe','attr':
+    {'placeholder' : 'Confirmer votre mot de passe'}}) }}
+
+    <div class="modal-footer">
+        <input class="btn btn-danger" type="submit" id='submit' value='Créer un compte' name="forminscription">
+    </div>
+    
+
+    <!-- <label><b>Nom d'utilisateur</b></label>
+    <input type="text" placeholder="Entrer le nom d'utilisateur" name="username" required>
+
+    <label><b>Nom</b></label>
+    <input type="text" placeholder="Entrer votre nom" name="forname" required>
+
+    <label><b>Prénom</b></label>
+    <input type="text" placeholder="Entrer votre prénom" name="name" required>
+
+    <label><b>Adresse e-mail</b></label>
+    <input type="email" placeholder="Entrer votre adresse e-mail" name="email" required>
+
+    <label><b>Mot de passe</b></label>
+    <input type="password" placeholder="Entrer le mot de passe" name="password" required>
+
+    <label><b>Confirmer mot de passe</b></label>
+    <input type="password" placeholder="Confirmer mot de passe" name="password2" required> -->
+    <br>
+    <br>
+    
+
+    <center><a>Vous avez déjà un compte existant ? </a><a id="sc" data-bs-dismiss="modal" data-bs-toggle="modal"
+            data-bs-target="#SeConnecter">Connectez-vous !</a>
+    </center>
+
+    {{ form_end(form) }}
