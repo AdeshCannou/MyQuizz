@@ -1,0 +1,79 @@
+html{
+  background: #c70039 ;
+}
+
+
+body {
+  background: #c70039 ;
+  font-family: 'Encode Sans', sans-serif;
+}
+
+/* se connecter */
+
+
+label {
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+
+.formConnexion a:hover {
+  color: inherit;
+}
+
+.formConnexion a {
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  padding-top: 30px;
+}
+
+#contain2 {
+	margin:auto;
+  z-index: 500;
+}
+
+/* Full-width inputs */
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+
+
+input[type=email], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+border-radius:5px;
+
+}
+
+/* Set a style for all buttons */
+
+input[type=submit] {
+  color: white;
+  padding: 14px 20px;
+  cursor: pointer;
+  width: 50%;
+  margin: auto;
+  
+}
+
+input[type=submit]:hover {
+  opacity: 75%;
+  color: white;
+}
+#sc {
+  color: #51aeed;
+  text-decoration: underline;
+  cursor:pointer;
+}
