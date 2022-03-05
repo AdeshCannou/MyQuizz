@@ -1,11 +1,33 @@
-html{
-  background: #c70039 ;
+html {
+  height: 100%;
+  /* all:revert; */
+  background-attachment: fixed;
+}
+
+main {
+  /* background-color:all; */
+  /* all:revert; */
+  background-attachment: fixed;
+}
+
+header {
+  background-color: white;
+  /* z-index: 500; */
 }
 
 
-body {
-  background: #c70039 ;
-  font-family: 'Encode Sans', sans-serif;
+
+
+#contain {
+  width: 70%;
+  /* z-index: -1; */
+  padding: 30px;
+  border: 1px solid #f1f1f1;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  margin: auto;
+  /* z-index: 500; */
 }
 
 /* se connecter */
@@ -27,14 +49,10 @@ label {
   padding-top: 30px;
 }
 
-#contain2 {
-	margin:auto;
-  z-index: 500;
-}
 
 /* Full-width inputs */
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -46,34 +64,76 @@ input[type=text], input[type=password] {
 
 
 
-input[type=email], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-border-radius:5px;
-
-}
-
-/* Set a style for all buttons */
-
-input[type=submit] {
-  color: white;
-  padding: 14px 20px;
-  cursor: pointer;
-  width: 50%;
-  margin: auto;
-  
-}
-
-input[type=submit]:hover {
-  opacity: 75%;
-  color: white;
-}
 #sc {
   color: #51aeed;
   text-decoration: underline;
-  cursor:pointer;
+  cursor: pointer;
+}
+
+.parallax {
+
+  /* background-image: url("../img/forestpara.jpg"); */
+  background-image: linear-gradient(to right top, rgba(255, 132, 137, 0.33), rgba(213, 173, 200, 0.7)), url("../img/forestpara.jpg");
+
+  min-height: 170px;
+  background-attachment: fixed;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 5px;
+
+}
+
+#titrepara h1 {
+
+  font-style: normal;
+  font-weight: 300;
+  text-align: center;
+  color: #ffffff;
+  font-size: 38px;
+  z-index: 0;
+  padding-top: 63px;
+  /* letter-spacing: 1.8px; */
+  /* text-transform: uppercase; */
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* background-color: rgba(0,0,0,.87); */
+  z-index: 9999;
+}
+
+#quiz_questions img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  border: 2px solid black;
+  box-shadow: 10px 5px 5px red;
+  margin-bottom: 2rem;
+}
+
+/* .ajout-question{
+  float: left;
+} */
+
+hr{
+  margin-bottom: 10px;
+}
+
+.delete-question{
+  float: right;
+  position:relative;
+}
+
+.table td {
+  text-align: center;   
+}
+
+.table th {
+  text-align: center;   
+  vertical-align:middle;
 }

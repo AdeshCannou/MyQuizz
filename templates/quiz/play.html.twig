@@ -1,0 +1,16 @@
+{% extends 'my_quiz/home.html.twig' %}
+
+{% block body %}
+
+	<div>
+		<h1>{{ quiz.title }}</h1>
+		{# <h2>{{ quiz.questions }}</h2> #}
+		{% for question in quiz.questions %}
+			<h1>{{ question.question }}</h1>
+			<h1>{{ question.reponse }}</h1>
+			{% if question.image %}
+            <img src="../../question_images/{{ question.image }}"></img>
+			{% endif %}
+		{% endfor %}
+	</div>
+{% endblock %}

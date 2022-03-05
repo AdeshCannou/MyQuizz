@@ -1,0 +1,84 @@
+{% extends 'my_quiz/home.html.twig' %}
+
+{% block body %}
+
+	<div class="" id="contain">
+		{{ form_start(formQuiz) }}
+
+		<center>
+			<h1>Bienvenue sur la creation de votre Quizz
+			</h1>
+		</center>
+
+
+		{{ form_row(formQuiz.title, {'label' : 'Nom du Quizz','attr':
+                {'placeholder' : 'Entrer le titre tu quiz'}}) }}
+		{{ form_row(formQuiz.description, {'label' : 'Description','attr':
+                {'placeholder' : 'Entrer la description de votre quiz'}}) }}
+		<div id="questions" data-prototype="{{ form_row(formQuiz.questions.vars.prototype)|e('html_attr') }}">
+            
+			{{form_row(formQuiz.questions)}}
+			<span></span>
+		</div>
+		<center>
+			<input class="btn btn-danger btn-lg gap-2 col-6 mx-auto text-wrap" type="submit" id='submit' value='Créer mon quizz et ses questions'>
+		</center>
+		{{ form_end(formQuiz) }}
+
+		<br>
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		let collection,boutonAjout,span;
+        window.onload = () => {
+            collection = document.querySelector("#questions");
+            span = collection.querySelector("span");
+
+            boutonAjout = document.createElement("a");
+            boutonAjout.className = "ajout-question btn btn-success mt-4";
+            let icon="<i class=\"fa-solid fa-plus\"></i>";
+            boutonAjout.innerHTML=icon;
+
+            let nouveauBouton = span.append(boutonAjout);
+
+            collection.dataset.index = collection.querySelectorAll("input").length;
+
+            boutonAjout.addEventListener("click", function () {
+                addButton(collection, nouveauBouton)
+            });
+
+        }
+        function addButton(collection, nouveauBouton) {
+            let prototype = collection.dataset.prototype;
+
+            let index = collection.dataset.index;
+
+            prototype = prototype.replace(/__name__/g,index);
+
+            let content = document.createElement("html");
+            content.innerHTML = prototype;
+            let newForm = content.querySelector("div");
+            newForm.className="mt-5";
+            let boutonSuppr = document.createElement("a");
+
+            boutonSuppr.className = "delete-question btn btn-danger";
+            boutonSuppr.id = "delete-question-" + index;
+            let icon="<i class=\"fa-solid fa-trash\"></i>";
+            boutonSuppr.innerHTML=icon;
+
+            newForm.prepend(boutonSuppr);
+
+            collection.dataset.index++;
+
+            let boutonAjout = collection.querySelector(".ajout-question");
+            span.insertBefore(newForm, boutonAjout);
+
+            boutonSuppr.addEventListener("click", function(){
+                this.nextElementSibling.parentElement.remove();
+            })
+        }
+	</script>
+{% endblock %}

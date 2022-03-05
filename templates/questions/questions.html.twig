@@ -1,0 +1,27 @@
+{% extends 'my_quiz/home.html.twig' %}
+
+{% block body %}
+
+	<br><br>
+	<div class="" id="contain">
+		<br>
+		{{ form_start(formQuestion) }}
+
+
+		{{ form_row(formQuestion.question, {'label' : 'Question','attr':
+                {'placeholder' : 'Entrer votre Question'}}) }}
+		{{ form_row(formQuestion.reponse, {'label' : 'Réponse','attr':
+                {'placeholder' : 'Entrer la réponse à la question'}}) }}
+		<div class="mb-3">
+			{{ form_row(formQuestion.image) }}
+		</div>
+		<br>
+		<br>
+		<center>
+			<input class="btn btn-danger btn-lg gap-2 col-6 mx-auto" type="submit" id='submit' value='Créer mon quizz et ses questions'>
+		</center>
+
+		{{ form_end(formQuestion) }}
+	</div>
+
+{% endblock %}

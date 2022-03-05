@@ -1,0 +1,160 @@
+{% extends 'my_quiz/home.html.twig' %}
+
+{% block body %}
+
+	<div class="" id="contain">
+		{{ form_start(formQuiz) }}
+
+		<center>
+			<h1>Bienvenue sur la creation de votre Quizz
+			</h1>
+		</center>
+
+
+		{{ form_row(formQuiz.title, {'label' : 'Nom du Quizz','attr':
+                {'placeholder' : 'Entrer le titre tu quiz'}}) }}
+		{{ form_row(formQuiz.description, {'label' : 'Description','attr':
+                {'placeholder' : 'Entrer la description de votre quiz'}}) }}
+		<div id="questions" data-prototype="{{ form_row(formQuiz.questions.vars.prototype)|e('html_attr') }}">
+            {# {{ form_label(formQuiz.questions, 'TESTTT')}} #}
+			{{form_row(formQuiz.questions) }}
+			<span></span>
+		</div>
+		<center>
+			<input class="btn btn-danger btn-lg gap-2 col-6 mx-auto text-wrap mt-5" type="submit" id='submit' value='Modifier mon quizz et ses questions'>
+		</center>
+
+		{{ form_end(formQuiz) }}
+
+		<br>
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		
+		checkboxs = document.querySelectorAll('input[type=checkbox]');
+		imgs = document.querySelectorAll('#quiz_questions img');
+
+		function setLabel(){
+			parentNode = document.querySelectorAll(".vich-image div");
+		 	console.log(parentNode);
+
+			for (i = 0; i < imgs.length; i++) {
+				parentNode[i].className = "form-check mt-3";
+				checkboxs[0].setAttribute("id","image-0");
+				var newlabel = document.createElement("Label");
+				newlabel.setAttribute("for","image-"+i);
+				newlabel.innerHTML = "Supprimer l\'image";
+				newlabel.className = "form-check-label";
+				parentNode[i].appendChild(newlabel);
+			}
+		}
+
+		function supprimerQuestion(){
+			divQuestion = document.querySelectorAll("div[id^='quiz_questions_']");
+			console.log(divQuestion);
+			for (i = 0; i < divQuestion.length; i++){
+
+				let boutonSupprQ = document.createElement("a");
+				divQuestion[i].className="mt-2";
+				
+				boutonSupprQ.className = "delete-question btn btn-danger";
+				boutonSupprQ.id = "delete-question-"+i;
+				
+				let icon="<i class=\"fa-solid fa-trash\"></i>";
+				boutonSupprQ.innerHTML=icon;
+				divQuestion[i].prepend(boutonSupprQ);
+
+				hr = document.createElement('hr');
+				//divQuestion[i].prepend(hr);
+				divQuestion[i].prepend(hr);
+				boutonSupprQ.addEventListener("click", function(){
+					this.nextElementSibling.parentElement.remove();
+				})
+			}
+			
+		}
+		
+
+		function hide_image(){
+	
+			for (i = 0; i < checkboxs.length; i++) {
+
+				if (checkboxs[i].checked == true){
+					imgs[i].style.display = 'none';
+				} else{
+					imgs[i].style.display = 'block';
+				}
+				
+			}
+		}
+
+		function myFunction(){
+			
+			//console.log(imgs);
+			for (i = 0; i < checkboxs.length; i++) {
+
+				checkboxs[i].onclick = function(){hide_image();onclick();};
+				checkboxs[i].setAttribute('onclick','hide_image();');
+   				checkboxs[i].className = "form-check-input mt-3";
+			}
+		}
+
+
+		let collection,boutonAjout,span,checkbox;
+		
+        window.onload = () => {
+			setLabel();
+			supprimerQuestion();
+			myFunction();	
+            collection = document.querySelector("#questions");
+            span = collection.querySelector("span");
+
+            boutonAjout = document.createElement("a");
+            boutonAjout.className = "ajout-question btn btn-success mt-4";
+            //boutonAjout.innerText = "Ajouter une question";
+			let icon="<i class=\"fa-solid fa-plus\"></i>";
+			boutonAjout.innerHTML=icon
+
+            let nouveauBouton = span.append(boutonAjout);
+			
+			collection.dataset.index = collection.querySelectorAll("input").length;
+
+            boutonAjout.addEventListener("click", function () {
+                addButton(collection, nouveauBouton)
+            });
+
+        }
+        function addButton(collection, nouveauBouton) {
+            let prototype = collection.dataset.prototype;
+
+            let index = collection.dataset.index;
+
+            prototype = prototype.replace(/__name__/g,index);
+
+            let content = document.createElement("html");
+            content.innerHTML = prototype;
+            let newForm = content.querySelector("div");
+			newForm.className="mt-5";
+            let boutonSuppr = document.createElement("a");
+            boutonSuppr.className = "delete-question btn btn-danger ";
+            boutonSuppr.id = "delete-question-" + index;
+			let icon="<i class=\"fa-solid fa-trash\"></i>";
+			boutonSuppr.innerHTML=icon
+
+            newForm.prepend(boutonSuppr);
+            collection.dataset.index++;
+
+            let boutonAjout = collection.querySelector(".ajout-question");
+            span.insertBefore(newForm, boutonAjout);
+
+            boutonSuppr.addEventListener("click", function(){
+                this.nextElementSibling.parentElement.remove();
+            })
+        }
+
+
+	</script>
+{% endblock %}

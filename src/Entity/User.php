@@ -2,16 +2,21 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Query\Expr\Func;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(
- * fields= {"email","username"}, message="Username ou e-mail déjà utilisé")
+ * @ORM\Entity(repositoryClass= UserRepository::class)
+ * @UniqueEntity(fields= {"email","username"}, message="Username ou e-mail déjà utilisé")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -24,7 +29,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Unername()
      */
     private $username;
 
@@ -46,7 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Asser\Length(min=8, minMessage="Votre mot de passe doit faire minimum 8 caractères")
+     * @Assert\Length(min=8, minMessage="Votre mot de passe doit faire minimum 8 caractères")
      * @Assert\EqualTo(propertyPath="confirm_password")
      */
     private $password;
@@ -55,6 +59,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas tapé le même mot de passe")
      */
     public $confirm_password;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Quiz::class, mappedBy="createdBy", orphanRemoval=true)
+     */
+    private $quizzes;
+
+    public function __construct()
+    {
+        $this->quizzes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -123,12 +137,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials()
     {
-        
     }
 
     public function getSalt()
     {
-        
     }
 
     public function getRoles()
@@ -138,6 +150,41 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserIdentifier()
     {
-        
+        return (string) $this->email;
+    }
+
+    /**
+     * @return Collection<int, Quiz>
+     */
+    public function getQuizzes(): Collection
+    {
+        return $this->quizzes;
+    }
+
+    public function addQuiz(Quiz $quiz): self
+    {
+        if (!$this->quizzes->contains($quiz)) {
+            $this->quizzes[] = $quiz;
+            $quiz->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuiz(Quiz $quiz): self
+    {
+        if ($this->quizzes->removeElement($quiz)) {
+            // set the owning side to null (unless already changed)
+            if ($quiz->getCreatedBy() === $this) {
+                $quiz->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->id;
     }
 }

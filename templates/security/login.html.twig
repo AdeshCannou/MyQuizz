@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="position-absolute top-50 start-50 translate-middle" id="contain">
+		<form class="formConnexion" action="{{ path('security_login') }}" method="POST">
+			<center>
+				<h1>Connectez-vous</h1>
+			</center>
+
+			<br>
+			<label>
+				<b>Adresse e-mail</b>
+			</label>
+			<input type="email" placeholder="Entrer votre adresse e-mail" name="_username" required>
+
+			<label>
+				<b>Mot de passe</b>
+			</label>
+			<input type="password" placeholder="Entrer le mot de passe" name="_password" required>
+			<br>
+			<br>
+
+			<center>
+				<input class="btn btn-danger btn-lg gap-1 col-3 mx-auto" type="submit" id='submit' name="forminscription" value='Valider'>
+				<br>
+			<br>
+				<a>Pas encore inscrit ?
+				</a>
+				<a id="sc" href="{{ path('security_registration') }}">Inscrivez-vous !</a>
+			</center>
+		</form>
+	</div>
+{% endblock %}
