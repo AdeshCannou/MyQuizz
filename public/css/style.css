@@ -116,6 +116,16 @@ footer {
   margin-bottom: 2rem;
 }
 
+#contain img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;
+  border: 2px solid black;
+  box-shadow: 10px 5px 5px red;
+  margin-bottom: 2rem;
+}
+
 /* .ajout-question{
   float: left;
 } */
@@ -136,4 +146,64 @@ hr{
 .table th {
   text-align: center;   
   vertical-align:middle;
+}
+
+.quiz_box header .timer{
+  float: right;
+  color: #004085;
+  background: #cce5ff;
+  border: 1px solid #b8daff;
+  height: 45px;
+  padding: 0 8px;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 145px;
+}
+.quiz_box header .timer .time_left_txt{
+  font-weight: 400;
+  font-size: 17px;
+  user-select: none;
+}
+.quiz_box header .timer .timer_sec{
+  font-size: 18px;
+  font-weight: 500;
+  height: 30px;
+  width: 45px;
+  color: #fff;
+  border-radius: 5px;
+  line-height: 30px;
+  text-align: center;
+  background: #343a40;
+  border: 1px solid #343a40;
+  user-select: none;
+}
+.quiz_box .time_line{
+  display:inline-block;
+  bottom: 0px;
+  left: 0px;
+  height: 3px;
+  max-width:100%;
+  background: #007bff;
+  z-index: 999;
+}
+
+.quiz_box header{
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.quiz_box header .title{
+  font-size: 20px;
+  font-weight: 600;
+}
+
+#question_1{
+ display: initial;
+}
+
+#question_2{
+  display: none;
 }
