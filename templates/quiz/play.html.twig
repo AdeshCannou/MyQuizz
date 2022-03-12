@@ -1,34 +1,43 @@
-{% extends 'my_quiz/home.html.twig' %}
+{% extends 'my_quiz/index.html.twig' %}
 
 {% block body %}
+	{% if not app.user %}
+		{% include "my_quiz/rules.html.twig" %}
+	{% else %}
 	<div class="test" id="contain">
 		<div class="quiz_box">
 			<header>
-				<div class="title"><h1>{{ quiz.title }}</h1></div>
+				<div class="title"><h1>{{ quiz.title }} - <span id="nbQuestionLabel"></span></h1></div>
 				<div class="timer float-end">
-					<div id="ad" class="time_left_text">Time left</div>
+					<div id="ad" class="time_left_text">Temps restant</div>
 					<div class="timer_sec">15</div>
 				</div>
 			</header>
 			<div class="time_line"></div>
 			<hr>
+			<form action="{{path('quiz_score',{'id' : quiz.id})}}" method="post" >
 			<section>
 				{% for question in quiz.questions %}
-					<div id="question_{{loop.index}}">
+					<div id="question_{{loop.index}}" data-index-number="{{loop.length}}">
 					{% if question.image %}
 						<img src="../../question_images/{{ question.image }}"></img>
 					{% endif %}
-					<center><h1>{{ question.question }}</h1></center>
+					
+					<center><h1>Question {{loop.index}} : {{ question.question }}</h1></center>
 					<hr>
 					<div class="input-group mb-3">
-					<input type="text" class="form-control" placeholder="Réponse" aria-label="Username">
+					
+					<input type="text" id="rep" class="form-control" placeholder="Réponse" aria-label="Réponse" name="question{{loop.index}}">
 					</div>
-					<h1>{{ question.reponse }}</h1>
+					<h1 style="display:none">{{ question.reponse }}</h1>
 					</div>
 				{% endfor %}
 			</section>
+				<input class="btn btn-success text-wrap" value="Consulter mon score" type="submit" id="envoyer"></input>
+			</form>
 		</div>
 	</div>
+	{% endif %}
 {% endblock %}
 
 {% block javascripts %}
@@ -37,55 +46,81 @@
 	const timeText = document.querySelector(".timer .time_left_txt");
 	const timeCount = document.querySelector(".timer .timer_sec");
 	const questions = document.querySelectorAll("div[id^='question_']");
-	
+	var nbQ = questions[0].getAttribute('data-index-number');
+	console.log(nbQ)
 	
 
-	function startTimer(time){
-			//console.log(document.getElementById("question_"+i));
-			//document.getElementById("question_"+i).style.display.add = "none";
+	function startTimer(time,time2){
 			let counter = setInterval(timer, 1000);
 			function timer(){
 			timeCount.textContent = time; //changing the value of timeCount with time value
 			time--; //decrement the time value
-			//if(time < 9){ //if timer is less than 9
-			//	let addZero = timeCount.textContent; 
-			//	timeCount.textContent = "0" + addZero; //add a 0 before time value
-			//}
-			//console.log(time);
-			if(time < 0){ //if timer is less than 0
-				clearInterval(counter); //clear counter
-				console.log("timeoff");
-				//timeText.textContent = "Time Off"; //change the time text to time off
+				if(time < 0){ //if timer is less than 0
+					clearInterval(counter); //clear le counter
+				}
 			}
-		}
-	}
-		
-	
-	function startTimerLine(time){
-		counterLine = setInterval(timer, 29);
-		function timer(){
-			time += 1; //upgrading time value with 1
-			time_line.style.width = time*0.185 + "%"; //increasing width of time_line with px by time value
-			console.log(time);
-			if(time > 549){ //if time value is greater than 549
+
+			counterLine = setInterval(timer2, 29,2);
+			function timer2(){
+			time2 += 1; //upgrading time value with 1
+			time_line.style.width = time2*0.1875 + "%"; //increasing width of time_line with px by time value
+			//console.log(time);
+			if(time2 > 549){ //if time value is greater than 549
 				clearInterval(counterLine); //clear counterLine
 				time_line.style.width = "0%"
-				time=0;
+				time2=0;
 			}	
 		}
 	}
 
-	function both(){
-		setInterval(startTimer,16000,15);
-		setInterval(startTimerLine,16000,0);
+	//counter1= 
+	var nbQTotal = nbQ*1000;
+	console.log(nbQTotal);
+	console.log(document.getElementById("envoyer"));
+
+	function startQutesion(test){
+	let counterQuestion = setInterval(questiont,16000 )
+			function questiont(){
+				test+=1;
+				document.querySelector("#nbQuestionLabel").innerText=test+"/"+nbQ;
+				if (document.getElementById("question_"+(test-1)) != null){
+					document.getElementById("question_"+(test-1)).style.display= "none";
+				}
+				if(document.getElementById("question_"+test) != null){
+					document.getElementById("question_"+test).style.display="initial";
+				}
+				
+				if(document.getElementById("question_"+(test+1)) != null){
+					document.getElementById("question_"+(test+1)).style.display= "none";
+				}
+				
+				
+				console.log(test);
+				if (test>nbQ){
+					clearInterval(counterQuestion);
+					document.getElementById("envoyer").style.display="initial";
+					time_line.style.display = "none";
+					document.querySelector("#nbQuestionLabel").innerText=" Terminé";
+					
+					//timeCount.
+				}
+			}	
 	}
 	
-	setTimeout(both,2000);
-
+	
+	//setTimeout(clearInterval,nbQTotal, counter1)
 	window.onload = () => {
-		//startTimer(15); //calling startTimer function
-		//startTimerLine(0); //calling startTimerLine 
+		startQutesion(0);
+		counter1 = setInterval(startTimer,16000,15,0);
+		setTimeout(clearInterval,nbQ*16000,counter1);
+		if(nbQ>1){
+			document.querySelector("#nbQuestionLabel").innerText=nbQ+" Questions";
+		}else{
+			document.querySelector("#nbQuestionLabel").innerText=nbQ+" Question";
+		}
+		
 	}
+	
 
 </script>
 {% endblock %}

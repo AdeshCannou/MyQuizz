@@ -1,7 +1,9 @@
-{% extends 'my_quiz/home.html.twig' %}
+{% extends 'my_quiz/index.html.twig' %}
 
 {% block body %}
-
+    {% if not app.user %}
+		{% include "my_quiz/rules.html.twig" %}
+	{% else %}
 	<div class="" id="contain">
 		{{ form_start(formQuiz) }}
 
@@ -27,7 +29,7 @@
 
 		<br>
 	</div>
-
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}

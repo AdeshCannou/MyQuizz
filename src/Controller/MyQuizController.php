@@ -32,7 +32,7 @@ class MyQuizController extends AbstractController
 
         $quizs = $repo->findAll();
 
-        return $this->render('my_quiz/home.html.twig',[
+        return $this->render('my_quiz/index.html.twig',[
             'quizs' => $quizs
         ]);
     }

@@ -16,16 +16,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class QuizController extends AbstractController
 {
     /**
-     * @Route("/quiz", name="quiz")
-     */
-    public function index(): Response
-    {
-        return $this->render('quiz/index.html.twig', [
-            'controller_name' => 'QuizController',
-        ]);
-    }
-
-    /**
      * @Route("/quiz/new", name="quiz_creation")
      */
     public function creation(Request $request)
@@ -49,9 +39,14 @@ class QuizController extends AbstractController
 
             return $this->redirectToRoute('home');
         }
-        return $this->render('quiz/creation.html.twig', [
-            'formQuiz' => $formQuiz->createView(),
-        ]);
+
+        if ($user) {
+            return $this->render('quiz/creation.html.twig', [
+                'formQuiz' => $formQuiz->createView(),
+            ]);
+        } else {
+            return $this->redirectToRoute('home');
+        }
     }
 
     /**
@@ -60,6 +55,7 @@ class QuizController extends AbstractController
     public function edit(Quiz $quiz, Request $request)
     {
         $user = $this->getUser();
+
         $formQuiz = $this->createForm(QuizType::class, $quiz);
 
         $formQuiz->handleRequest($request);
@@ -72,12 +68,19 @@ class QuizController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-
-
-        return $this->render('quiz/edit.html.twig', [
-            'question' => $quiz->getQuestions(),
-            'formQuiz' => $formQuiz->createView()
-        ]);
+        if ($this->getUser() <> NULL) {
+            $emailAdmin = $this->getUser()->getEmail();
+        } else {
+            $emailAdmin = '';
+        }
+        if ($emailAdmin == 'root@root.fr' || $quiz->getCreatedBy() == $user) {
+            return $this->render('quiz/edit.html.twig', [
+                'question' => $quiz->getQuestions(),
+                'formQuiz' => $formQuiz->createView()
+            ]);
+        } else {
+            return $this->redirectToRoute('home');
+        }
     }
 
     /**
@@ -85,10 +88,14 @@ class QuizController extends AbstractController
      */
     public function play(Quiz $quiz)
     {
-
-        return $this->render('quiz/play.html.twig', [
-            'quiz' => $quiz
-        ]);
+        $user = $this->getUser();
+        if ($user) {
+            return $this->render('quiz/play.html.twig', [
+                'quiz' => $quiz
+            ]);
+        } else {
+            return $this->redirectToRoute('home');
+        }
     }
 
     /**
@@ -98,10 +105,33 @@ class QuizController extends AbstractController
      */
     public function deleteQuiz(Quiz $quiz): RedirectResponse
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($quiz);
-        $em->flush();
+        $user = $this->getUser();
+        if ($this->getUser() <> NULL) {
+            $emailAdmin = $this->getUser()->getEmail();
+        } else {
+            $emailAdmin = '';
+        }
 
+        if ($emailAdmin == 'root@root.fr' || $quiz->getCreatedBy() == $user) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($quiz);
+            $em->flush();
+        }
         return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @Route("quiz/{id}/score", name="quiz_score")
+     */
+    public function afficheScore(Quiz $quiz): Response
+    {
+        $user = $this->getUser();
+        if ($user) {
+            return $this->render('quiz/score.html.twig', [
+                'quiz' => $quiz
+            ]);
+        } else {
+            return $this->redirectToRoute('home');
+        }
     }
 }

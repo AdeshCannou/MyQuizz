@@ -1,0 +1,70 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	{% if not app.user %}
+		{% include "my_quiz/rules.html.twig" %}
+	{% else %}
+	<div class="test" id="contain">
+		<div class="quiz_box">
+			<header>
+				<div class="title">
+					<h1>{{ quiz.title }}
+						-
+						<span id="nbQuestionLabel"></span>
+					</h1>
+				</div>
+			</header>
+			<div class="time_line"></div>
+			<hr>
+			<span>
+				{% for question in quiz.questions %}
+					<div id="question_{{loop.index}}" data-index-number="{{loop.length}}">
+						{% if question.image %}
+							<img src="../../question_images/{{ question.image }}"></img>
+					{% endif %}
+
+					<center>
+						<h1>Question
+							{{loop.index}}
+							:
+							{{ question.question }}</h1>
+					</center>
+					
+					<div class="input-group mb-3">
+						<input type="text" id="rep" class="form-control" placeholder="{{ app.request.request.get("question"~loop.index) }}" aria-label="" name="question{{loop.index}}" disabled>
+						{# <i class="fa-solid fa-check"></i> #}
+					</div>
+					<h2 class="mb-5">Réponse : <span class="rep">{{ question.reponse }}</span></h2>
+                    <span class="hrQ"><hr></span>
+				</div>
+			{% endfor %}
+		</span>
+	</div>
+</div>
+{% endif %}
+{% endblock %}
+{% block javascripts %}
+<script>
+
+
+	const repQuestions = document.querySelectorAll(".rep");
+    const questions = document.querySelectorAll("div[id^='question_']");
+    const questionsInput = document.querySelectorAll("input[name^='question']");
+    const iconRep = document.querySelectorAll(".input-group");
+    var nbQ = questions[0].getAttribute('data-index-number');
+    var score = 0;
+    window.onload = () => {
+        for (i = 0; i < questions.length; i ++) {
+            questionsInput[i].getAttribute('placeholder');
+            if (questionsInput[i].getAttribute('placeholder').toUpperCase() == repQuestions[i].textContent.toUpperCase()) {
+                score++;
+                iconRep[i].insertAdjacentHTML('beforeend', '<i class="fa-solid fa-check fa-xl"  style="color:green" ></i>' );
+            }else{
+                iconRep[i].insertAdjacentHTML('beforeend', '<i class="fa-solid fa-xmark fa-xl" style="color:red" ></i>' );
+            }
+        }
+
+        document.querySelector("#nbQuestionLabel").innerText = "Score : " + score + " sur " + nbQ;
+
+    }
+</script>{% endblock %}

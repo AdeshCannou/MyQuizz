@@ -106,7 +106,7 @@ footer {
   z-index: 9999;
 }
 
-#quiz_questions img{
+#quiz_questions img {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -116,7 +116,7 @@ footer {
   margin-bottom: 2rem;
 }
 
-#contain img{
+#contain img {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -130,25 +130,25 @@ footer {
   float: left;
 } */
 
-hr{
+hr {
   margin-bottom: 10px;
 }
 
-.delete-question{
+.delete-question {
   float: right;
-  position:relative;
+  position: relative;
 }
 
 .table td {
-  text-align: center;   
+  text-align: center;
 }
 
 .table th {
-  text-align: center;   
-  vertical-align:middle;
+  text-align: center;
+  vertical-align: middle;
 }
 
-.quiz_box header .timer{
+.quiz_box header .timer {
   float: right;
   color: #004085;
   background: #cce5ff;
@@ -159,14 +159,16 @@ hr{
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  width: 145px;
+  width: 175px;
 }
-.quiz_box header .timer .time_left_txt{
+
+.quiz_box header .timer .time_left_txt {
   font-weight: 400;
   font-size: 17px;
   user-select: none;
 }
-.quiz_box header .timer .timer_sec{
+
+.quiz_box header .timer .timer_sec {
   font-size: 18px;
   font-weight: 500;
   height: 30px;
@@ -179,31 +181,60 @@ hr{
   border: 1px solid #343a40;
   user-select: none;
 }
-.quiz_box .time_line{
-  display:inline-block;
+
+.quiz_box .time_line {
+  display: inline-block;
   bottom: 0px;
   left: 0px;
   height: 3px;
-  max-width:100%;
+  max-width: 100%;
   background: #007bff;
   z-index: 999;
 }
 
-.quiz_box header{
+.quiz_box header {
   height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.quiz_box header .title{
+
+.quiz_box header .title {
   font-size: 20px;
   font-weight: 600;
 }
 
-#question_1{
- display: initial;
+section div {
+  display: none;
 }
 
-#question_2{
+.quiz_box #envoyer {
   display: none;
+}
+
+
+
+.input-group i {
+  position: absolute;
+  right: 0;
+  top: 25px;
+  padding: 9px 8px;
+  /* transition: 0.3s; */
+}
+
+.hrQ {
+  size: 5;
+}
+
+
+
+
+table {
+  counter-reset: case;
+}
+
+tbody th:before {
+  counter-increment: case;
+  content: counter(case);
+  font-size:x-large;
 }

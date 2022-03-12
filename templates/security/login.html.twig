@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="position-absolute top-50 start-50 translate-middle" id="contain">
+	<div id="contain">
+		{% if app.user %}
+			{% include "my_quiz/rules.html.twig" %}
+		{% else %}
 		<form class="formConnexion" action="{{ path('security_login') }}" method="POST">
 			<center>
 				<h1>Connectez-vous</h1>
@@ -21,7 +24,7 @@
 			<br>
 
 			<center>
-				<input class="btn btn-danger btn-lg gap-1 col-3 mx-auto" type="submit" id='submit' name="forminscription" value='Valider'>
+				<input class="btn btn-danger btn-lg gap-1 col-3 mx-auto text-wrap" type="submit" id='submit' name="forminscription" value='Valider'>
 				<br>
 			<br>
 				<a>Pas encore inscrit ?
@@ -30,4 +33,5 @@
 			</center>
 		</form>
 	</div>
+	{% endif %}
 {% endblock %}

@@ -1,7 +1,9 @@
-{% extends 'my_quiz/home.html.twig' %}
+{% extends 'my_quiz/index.html.twig' %}
 
 {% block body %}
-
+	{% if not app.user %}
+		{% include "my_quiz/rules.html.twig" %}
+	{% else %}
 	<div class="" id="contain">
 		{{ form_start(formQuiz) }}
 
@@ -28,7 +30,7 @@
 
 		<br>
 	</div>
-
+	{% endif %}
 {% endblock %}
 
 {% block javascripts %}
@@ -59,11 +61,11 @@
 
 				let boutonSupprQ = document.createElement("a");
 				divQuestion[i].className="mt-2";
-				
+			
 				boutonSupprQ.className = "delete-question btn btn-danger";
 				boutonSupprQ.id = "delete-question-"+i;
 				
-				let icon="<i class=\"fa-solid fa-trash\"></i>";
+				let icon='<i class=\"fa-solid fa-trash\" ></i>';
 				boutonSupprQ.innerHTML=icon;
 				divQuestion[i].prepend(boutonSupprQ);
 
@@ -71,7 +73,10 @@
 				//divQuestion[i].prepend(hr);
 				divQuestion[i].prepend(hr);
 				boutonSupprQ.addEventListener("click", function(){
-					this.nextElementSibling.parentElement.remove();
+					if(confirm('Attention ceci va supprimer la question selectionné')){
+						this.nextElementSibling.parentElement.remove();
+					}
+					
 				})
 			}
 			
@@ -157,4 +162,5 @@
 
 
 	</script>
+	
 {% endblock %}

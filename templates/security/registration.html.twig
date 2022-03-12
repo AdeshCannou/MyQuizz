@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="position-absolute top-50 start-50 translate-middle" id="contain">
+		{% if app.user %}
+			{% include "my_quiz/rules.html.twig" %}
+		{% else %}
+	<div  id="contain">
 		{{ form_start(form) }}
 		<center>
 			<h1>Création d'un compte
@@ -24,7 +27,7 @@
 		<br>
 		<br>
 		<center>
-			<input class="btn btn-danger btn-lg gap-2 col-6 mx-auto" type="submit" id='submit' value='Créer un compte'>
+			<input class="btn btn-danger btn-lg gap-2 col-6 mx-auto text-wrap" type="submit" id='submit' value='Créer un compte'>
 			<br>
 			<br>
 
@@ -34,4 +37,5 @@
 		</center>
 	</div>
 	{{ form_end(form) }}
+	{% endif %}
 {% endblock %}
