@@ -36,15 +36,15 @@
 	<script>
 		let collection,boutonAjout,span;
         window.onload = () => {
-            collection = document.querySelector("#questions");
+            collection = document.querySelector("#questions"); // selectionne toute les div commençant par 'questions'
             span = collection.querySelector("span");
 
-            boutonAjout = document.createElement("a");
+            boutonAjout = document.createElement("a"); // ici on ajoute des classe bootstrap et créé un bouton
             boutonAjout.className = "ajout-question btn btn-success mt-4";
             let icon="<i class=\"fa-solid fa-plus\"></i>";
             boutonAjout.innerHTML=icon;
 
-            let nouveauBouton = span.append(boutonAjout);
+            let nouveauBouton = span.append(boutonAjout); //ajoute le bouton dans le span 
 
             collection.dataset.index = collection.querySelectorAll("input").length;
 
@@ -53,32 +53,32 @@
             });
 
         }
-        function addButton(collection, nouveauBouton) {
+        function addButton(collection, nouveauBouton) { //fonction pour ajouter une question
             let prototype = collection.dataset.prototype;
 
             let index = collection.dataset.index;
 
-            prototype = prototype.replace(/__name__/g,index);
+            prototype = prototype.replace(/__name__/g,index); //on remplace --name-- par l'index afin que chaque quesion aie un id différent
 
-            let content = document.createElement("html");
+            let content = document.createElement("html"); // ici on créé + ajoute classe bootstrap
             content.innerHTML = prototype;
             let newForm = content.querySelector("div");
             newForm.className="mt-5";
             let boutonSuppr = document.createElement("a");
 
-            boutonSuppr.className = "delete-question btn btn-danger";
-            boutonSuppr.id = "delete-question-" + index;
+            boutonSuppr.className = "delete-question btn btn-danger"; //ajout de classe bootstrap 
+            boutonSuppr.id = "delete-question-" + index; // id avec l'index
             let icon="<i class=\"fa-solid fa-trash\"></i>";
-            boutonSuppr.innerHTML=icon;
+            boutonSuppr.innerHTML=icon; //ajoute l'icon
 
-            newForm.prepend(boutonSuppr);
+            newForm.prepend(boutonSuppr); //ajoute le bouton au debut de newform
 
-            collection.dataset.index++;
+            collection.dataset.index++;  //incrément l'index
 
             let boutonAjout = collection.querySelector(".ajout-question");
             span.insertBefore(newForm, boutonAjout);
 
-            boutonSuppr.addEventListener("click", function(){
+            boutonSuppr.addEventListener("click", function(){ //pour le bouton supprimer
                 this.nextElementSibling.parentElement.remove();
             })
         }

@@ -20,6 +20,8 @@ class QuizController extends AbstractController
      */
     public function creation(Request $request)
     {
+
+        // fonction pour crééer un quizz
         $quiz = new Quiz();
         $user = $this->getUser();
         $question = new Questions();
@@ -36,10 +38,11 @@ class QuizController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($quiz);
             $entityManager->flush();
-
+            //nous redirige vers l'accueil
             return $this->redirectToRoute('home');
         }
 
+        //redirige vers la page de crétion de quizz 
         if ($user) {
             return $this->render('quiz/creation.html.twig', [
                 'formQuiz' => $formQuiz->createView(),
@@ -73,6 +76,8 @@ class QuizController extends AbstractController
         } else {
             $emailAdmin = '';
         }
+
+        //Condition pour l'admin
         if ($emailAdmin == 'root@root.fr' || $quiz->getCreatedBy() == $user) {
             return $this->render('quiz/edit.html.twig', [
                 'question' => $quiz->getQuestions(),
@@ -88,6 +93,7 @@ class QuizController extends AbstractController
      */
     public function play(Quiz $quiz)
     {
+        //fonction pour jouer redirige vers la page play
         $user = $this->getUser();
         if ($user) {
             return $this->render('quiz/play.html.twig', [
@@ -112,6 +118,7 @@ class QuizController extends AbstractController
             $emailAdmin = '';
         }
 
+        //condition pour l'admin qui peut supprimer le quiz de n'importe qui
         if ($emailAdmin == 'root@root.fr' || $quiz->getCreatedBy() == $user) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($quiz);
@@ -125,6 +132,7 @@ class QuizController extends AbstractController
      */
     public function afficheScore(Quiz $quiz): Response
     {
+        //fontion pour afficher le score, redirige vers cette page score
         $user = $this->getUser();
         if ($user) {
             return $this->render('quiz/score.html.twig', [

@@ -18,7 +18,6 @@
 		{{ form_row(formQuiz.description, {'label' : 'Description','attr':
                 {'placeholder' : 'Entrer la description de votre quiz'}}) }}
 		<div id="questions" data-prototype="{{ form_row(formQuiz.questions.vars.prototype)|e('html_attr') }}">
-            {# {{ form_label(formQuiz.questions, 'TESTTT')}} #}
 			{{form_row(formQuiz.questions) }}
 			<span></span>
 		</div>
@@ -41,9 +40,9 @@
 
 		function setLabel(){
 			parentNode = document.querySelectorAll(".vich-image div");
-		 	console.log(parentNode);
+		 	console.log(parentNode); //débogage
 
-			for (i = 0; i < imgs.length; i++) {
+			for (i = 0; i < imgs.length; i++) { //pour chaque image on va ajouter des classe boostrap attribut css etc...
 				parentNode[i].className = "form-check mt-3";
 				checkboxs[0].setAttribute("id","image-0");
 				var newlabel = document.createElement("Label");
@@ -54,7 +53,7 @@
 			}
 		}
 
-		function supprimerQuestion(){
+		function supprimerQuestion(){ // fonction pour supprimer l'affichage d'une question
 			divQuestion = document.querySelectorAll("div[id^='quiz_questions_']");
 			console.log(divQuestion);
 			for (i = 0; i < divQuestion.length; i++){
@@ -70,7 +69,6 @@
 				divQuestion[i].prepend(boutonSupprQ);
 
 				hr = document.createElement('hr');
-				//divQuestion[i].prepend(hr);
 				divQuestion[i].prepend(hr);
 				boutonSupprQ.addEventListener("click", function(){
 					if(confirm('Attention ceci va supprimer la question selectionné')){
@@ -83,8 +81,8 @@
 		}
 		
 
-		function hide_image(){
-	
+		function hide_image(){ // foncvtion qui sera appelé lorsqu'on cochera la checkbox pour supprimer une image d'une question
+	 
 			for (i = 0; i < checkboxs.length; i++) {
 
 				if (checkboxs[i].checked == true){

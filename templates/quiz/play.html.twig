@@ -15,7 +15,8 @@
 			</header>
 			<div class="time_line"></div>
 			<hr>
-			<form action="{{path('quiz_score',{'id' : quiz.id})}}" method="post" >
+			{# Ici on envoie les réponses aux question a la page scro via la méthode POST #}
+			<form action="{{path('quiz_score',{'id' : quiz.id})}}" method="post" > 
 			<section>
 				{% for question in quiz.questions %}
 					<div id="question_{{loop.index}}" data-index-number="{{loop.length}}">

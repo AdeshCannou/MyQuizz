@@ -31,8 +31,8 @@
 					</center>
 					
 					<div class="input-group mb-3">
+						{# ici pour chaque question on ajoute dynamique dans le placeholder ce que l'utilisateur a envoyé via le formulaire precedent (varible $_POST) #}
 						<input type="text" id="rep" class="form-control" placeholder="{{ app.request.request.get("question"~loop.index) }}" aria-label="" name="question{{loop.index}}" disabled>
-						{# <i class="fa-solid fa-check"></i> #}
 					</div>
 					<h2 class="mb-5">Réponse : <span class="rep">{{ question.reponse }}</span></h2>
                     <span class="hrQ"><hr></span>
@@ -53,14 +53,14 @@
     const iconRep = document.querySelectorAll(".input-group");
     var nbQ = questions[0].getAttribute('data-index-number');
     var score = 0;
-    window.onload = () => {
+    window.onload = () => { //fontion qui checkera si la réponse est identique à celle entré par l'utilisateur précedemment
         for (i = 0; i < questions.length; i ++) {
             questionsInput[i].getAttribute('placeholder');
             if (questionsInput[i].getAttribute('placeholder').toUpperCase() == repQuestions[i].textContent.toUpperCase()) {
                 score++;
-                iconRep[i].insertAdjacentHTML('beforeend', '<i class="fa-solid fa-check fa-xl"  style="color:green" ></i>' );
+                iconRep[i].insertAdjacentHTML('beforeend', '<i class="fa-solid fa-check fa-xl"  style="color:green" ></i>' ); //icon tick
             }else{
-                iconRep[i].insertAdjacentHTML('beforeend', '<i class="fa-solid fa-xmark fa-xl" style="color:red" ></i>' );
+                iconRep[i].insertAdjacentHTML('beforeend', '<i class="fa-solid fa-xmark fa-xl" style="color:red" ></i>' ); //icon croix
             }
         }
 
