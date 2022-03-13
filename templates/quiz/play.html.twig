@@ -53,20 +53,19 @@
 	function startTimer(time,time2){
 			let counter = setInterval(timer, 1000);
 			function timer(){
-			timeCount.textContent = time; //changing the value of timeCount with time value
-			time--; //decrement the time value
-				if(time < 0){ //if timer is less than 0
+			timeCount.textContent = time; // Change la valeur de timeCount avec la valeur du temps
+			time--; //décremente le timer
+				if(time < 0){ //si le timer est < 0
 					clearInterval(counter); //clear le counter
 				}
 			}
 
 			counterLine = setInterval(timer2, 29,2);
 			function timer2(){
-			time2 += 1; //upgrading time value with 1
-			time_line.style.width = time2*0.1875 + "%"; //increasing width of time_line with px by time value
-			//console.log(time);
-			if(time2 > 549){ //if time value is greater than 549
-				clearInterval(counterLine); //clear counterLine
+			time2 += 1; //ajoute 1 au timer
+			time_line.style.width = time2*0.1875 + "%"; //incrémente la width de time_line px par la valeur du temps
+			if(time2 > 549){ //si le temps est >549
+				clearInterval(counterLine); //clear le counterLine
 				time_line.style.width = "0%"
 				time2=0;
 			}	
@@ -82,33 +81,31 @@
 	let counterQuestion = setInterval(questiont,16000 )
 			function questiont(){
 				test+=1;
+				// Permmet de gérer l'affichage des questions toutes les 15 secondes
+				// toute les questions sont masqué au chargement de la page
 				document.querySelector("#nbQuestionLabel").innerText=test+"/"+nbQ;
-				if (document.getElementById("question_"+(test-1)) != null){
+				if (document.getElementById("question_"+(test-1)) != null){	// la x-1 question n'est pas affiché
 					document.getElementById("question_"+(test-1)).style.display= "none";
 				}
-				if(document.getElementById("question_"+test) != null){
+				if(document.getElementById("question_"+test) != null){ // la question x apparait
 					document.getElementById("question_"+test).style.display="initial";
 				}
 				
-				if(document.getElementById("question_"+(test+1)) != null){
+				if(document.getElementById("question_"+(test+1)) != null){ // la question x+1 n'est pas affiché
 					document.getElementById("question_"+(test+1)).style.display= "none";
 				}
 				
-				
-				console.log(test);
-				if (test>nbQ){
-					clearInterval(counterQuestion);
-					document.getElementById("envoyer").style.display="initial";
-					time_line.style.display = "none";
+				if (test>nbQ){ // lorsque toutes les questions sont apparu
+					clearInterval(counterQuestion); // clear le counter du chronometre
+					document.getElementById("envoyer").style.display="initial"; // le bouton consulter le score apparait
+					time_line.style.display = "none"; // la time_line disparait
 					document.querySelector("#nbQuestionLabel").innerText=" Terminé";
-					
-					//timeCount.
 				}
 			}	
 	}
 	
 	
-	//setTimeout(clearInterval,nbQTotal, counter1)
+
 	window.onload = () => {
 		startQutesion(0);
 		counter1 = setInterval(startTimer,16000,15,0);
