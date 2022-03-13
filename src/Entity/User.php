@@ -16,7 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass= UserRepository::class)
- * @UniqueEntity(fields= {"email","username"}, message="Username ou e-mail déjà utilisé")
+ * @UniqueEntity(fields= {"email"}, message="E-mail déjà utilisé")
+ * @UniqueEntity(fields= {"username"}, message="Username déjà utilisé")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -51,7 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=8, minMessage="Votre mot de passe doit faire minimum 8 caractères")
-     * @Assert\EqualTo(propertyPath="confirm_password")
+     * @Assert\EqualTo(propertyPath="confirm_password", message="Vous n'avez pas tapé le même mot de passe")
      */
     private $password;
 

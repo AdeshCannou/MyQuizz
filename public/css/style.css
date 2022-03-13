@@ -84,15 +84,23 @@ input[type=text], input[type=password], input[type=email] {
 
 }
 
+.font{
+  font-family: 'Gameboi95';
+  src: url(../font/Gameboi95.ttf) format('ttf');
+}
+
 #titrepara h1 {
 
   font-style: normal;
   font-weight: 300;
+  font-family: 'Gameboi95';
+  src: url(../font/Gameboi95.ttf) format('ttf');
   text-align: center;
   color: #ffffff;
   font-size: 38px;
   z-index: 0;
   padding-top: 63px;
+
   /* letter-spacing: 1.8px; */
   /* text-transform: uppercase; */
 }
@@ -237,4 +245,13 @@ tbody th:before {
   counter-increment: case;
   content: counter(case);
   font-size:x-large;
+}
+
+
+#creationQuizz{
+  display: inline-block;
+}
+
+#creationQuizz2{
+  float:right;
 }

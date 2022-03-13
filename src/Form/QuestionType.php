@@ -27,6 +27,7 @@ class QuestionType extends AbstractType
                 "attr" => [
                     "class" => "form-control",
                     "type" => "file",
+                    "accept" => ".png, .jpg, .jpeg",
                     "required" => false
                 ]
             ])

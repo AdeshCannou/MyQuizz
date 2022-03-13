@@ -6,12 +6,15 @@
 	{% include "my_quiz/rules.html.twig" %}
 {% else %}
 	<div class="container p-3 bg-white rounded">
-		<h1>Bienvenue
+		<h1 id="creationQuizz">Bienvenue
 			{{ app.user.name }}
 			sur MyQuizzz</h1>
-		<a href="{{ path('quiz_creation') }}">
-			<button value="Creer un quizz" class="btn btn-success btn-lg">Creation Quizz</button>
+
+		<a id="creationQuizz2"  href="{{ path('quiz_creation') }}">
+			<button value="Creer un quizz" class="btn btn-success btn-lg ml-5">Creation Quizz</button>
 		</a>
+
+
 		<br>
 		<br>
 		<div class="container table-responsive">
