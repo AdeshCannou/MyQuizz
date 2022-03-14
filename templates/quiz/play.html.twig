@@ -34,7 +34,7 @@
 					</div>
 				{% endfor %}
 			</section>
-				<input class="btn btn-success text-wrap" value="Consulter mon score" type="submit" id="envoyer"></input>
+				<input class="btn btn-success text-wrap" value="Consulter mon score" type="submit" id="envoyer" disabled></input>
 			</form>
 		</div>
 	</div>
@@ -99,6 +99,7 @@
 				if (test>nbQ){ // lorsque toutes les questions sont apparu
 					clearInterval(counterQuestion); // clear le counter du chronometre
 					document.getElementById("envoyer").style.display="initial"; // le bouton consulter le score apparait
+					document.getElementById("envoyer").disabled = false;
 					time_line.style.display = "none"; // la time_line disparait
 					document.querySelector("#nbQuestionLabel").innerText=" Terminé";
 				}
