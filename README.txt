@@ -1,7 +1,7 @@
 PROJET MY_QUIZZ par Adesh CANNOU [APP3]
 
 Si vous ne voulez pas installer Symfony 5, j'ai mis le projet sur un server 
-voici le lien : https://my-quizzz.herokuapp.com/
+voici le lien : http://my-quizz.herokuapp.com/
 Voici les logs pour le compte admin --> e-mail : root@root.fr ; MDP : rootroot
 Et enfin le lien vers le repository GitHub afin que vous vérifier qu'il n'y ai pas eu de push après la date de rendu : https://github.com/AdeshCannou/MyQuizz
 
